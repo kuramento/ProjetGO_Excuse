@@ -8,7 +8,7 @@ Le projet suivant permet de générer des excuses de façon aléatoire, avec un 
 
 - **Serveur :**
   - Héberge une collection de phrases d'excuses prédéfinies.
-  - Fournit un endpoint API pour obtenir une excuse aléatoire au format JSON.
+  - Fournit un endpoint API pour obtenir une excuse aléatoire au format JSON ou affiche une page web.
 
 - **Client :**
   - Interface en ligne de commande interactive.
@@ -18,7 +18,7 @@ Le projet suivant permet de générer des excuses de façon aléatoire, avec un 
 ## Structure du Projet
 
 
-- **server/** : Contient le code côté serveur et le fichier `excuses.json`.
+- **server/** : Contient le code côté serveur et le fichier `excuses.json`. Le code permettant d'afficher la page web.
 - **client/** : Contient le code côté client.
 - **README.md** : Ce fichier de documentation.
 
