@@ -1,4 +1,4 @@
-#Projet Générateur d'Excuses
+# Projet Générateur d'Excuses
 
 ## Vue d'ensemble
 
