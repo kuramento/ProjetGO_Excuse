@@ -1,12 +1,42 @@
 [
-    "Je suis vraiment désolé, j'ai eu un contretemps inattendu.",
-    "Pardon pour le retard, mon réveil n'a pas sonné.",
-    "Je m'excuse, j'ai été malade et je n'ai pas pu répondre.",
-    "Désolé, j'ai eu un problème familial urgent.",
-    "Je suis navré, mon ordinateur a planté et j'ai perdu mes fichiers.",
-    "Pardon, j'ai mal calculé le temps nécessaire pour terminer la tâche.",
-    "Je suis désolé, une urgence au travail m'a retenu plus longtemps que prévu.",
-    "Désolé pour l'oubli, j'ai été très occupé ces derniers jours.",
-    "Pardon, j'ai eu un imprévu de dernière minute.",
-    "Je m'excuse, le trafic était exceptionnellement dense aujourd'hui."
+    {
+        "category": "Travail",
+        "excuse": "Je suis vraiment désolé, j'ai eu un contretemps inattendu."
+    },
+    {
+        "category": "Personnel",
+        "excuse": "Pardon pour le retard, mon réveil n'a pas sonné."
+    },
+    {
+        "category": "Santé",
+        "excuse": "Je m'excuse, j'ai été malade et je n'ai pas pu répondre."
+    },
+    {
+        "category": "Familial",
+        "excuse": "Désolé, j'ai eu un problème familial urgent."
+    },
+    {
+        "category": "Technologie",
+        "excuse": "Je suis navré, mon ordinateur a planté et j'ai perdu mes fichiers."
+    },
+    {
+        "category": "Gestion du Temps",
+        "excuse": "Pardon, j'ai mal calculé le temps nécessaire pour terminer la tâche."
+    },
+    {
+        "category": "Urgence",
+        "excuse": "Je suis désolé, une urgence au travail m'a retenu plus longtemps que prévu."
+    },
+    {
+        "category": "Oubli",
+        "excuse": "Désolé pour l'oubli, j'ai été très occupé ces derniers jours."
+    },
+    {
+        "category": "Imprévu",
+        "excuse": "Pardon, j'ai eu un imprévu de dernière minute."
+    },
+    {
+        "category": "Trafic",
+        "excuse": "Je m'excuse, le trafic était exceptionnellement dense aujourd'hui."
+    }
 ]
