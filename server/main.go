@@ -15,6 +15,7 @@ var excuses []string
 
 // Charge les excuses depuis le fichier JSON
 func loadExcuses(filename string) error {
+    log.Printf("Tentative d'ouverture de %s", filename)
     file, err := os.Open(filename)
     if err != nil {
         return err
@@ -25,6 +26,7 @@ func loadExcuses(filename string) error {
     if err := decoder.Decode(&excuses); err != nil {
         return err
     }
+    log.Printf("Chargement des excuses réussi, total : %d", len(excuses))
     return nil
 }
 
@@ -47,7 +49,7 @@ func getRandomExcuse(w http.ResponseWriter, r *http.Request) {
 func main() {
     // Définir un drapeau pour le chemin du fichier excuses.json
     var excusesFile string
-    flag.StringVar(&excusesFile, "excuses", "server/excuses.json", "Chemin vers le fichier excuses.json")
+    flag.StringVar(&excusesFile, "excuses", "excuses.json", "Chemin vers le fichier excuses.json")
     flag.Parse()
 
     // Obtenir le répertoire de travail actuel
