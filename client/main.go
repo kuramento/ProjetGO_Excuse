@@ -1,32 +1,35 @@
 package main
 
 import (
+    "encoding/json"
     "fmt"
-    "io"
+    "io/ioutil"
+    "log"
     "net/http"
-    "os"
 )
 
+type ExcuseResponse struct {
+    Excuse string `json:"excuse"`
+}
+
 func main() {
-    fmt.Println("Téléchargement des cours en PDF...")
-    resp, err := http.Get("http://localhost:8080/telecharger-cours")
+    url := "http://localhost:8080/excuse"
+
+    resp, err := http.Get(url)
     if err != nil {
-        fmt.Println("Erreur :", err)
-        return
+        log.Fatalf("Erreur lors de la requête : %v", err)
     }
     defer resp.Body.Close()
 
-    outFile, err := os.Create("courses.pdf")
-    if err != nil {
-        fmt.Println("Erreur :", err)
-        return
+    if resp.StatusCode != http.StatusOK {
+        body, _ := ioutil.ReadAll(resp.Body)
+        log.Fatalf("Erreur du serveur : %s", body)
     }
-    defer outFile.Close()
 
-    _, err = io.Copy(outFile, resp.Body)
-    if err != nil {
-        fmt.Println("Erreur :", err)
-        return
+    var excuseResp ExcuseResponse
+    if err := json.NewDecoder(resp.Body).Decode(&excuseResp); err != nil {
+        log.Fatalf("Erreur lors du décodage de la réponse : %v", err)
     }
-    fmt.Println("Téléchargement terminé : courses.pdf")
+
+    fmt.Printf("Excuse obtenue : %s\n", excuseResp.Excuse)
 }

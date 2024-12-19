@@ -1,21 +1,76 @@
 package main
 
 import (
-    "fmt"
+    "encoding/json"
+    "flag"
     "log"
+    "math/rand"
     "net/http"
-    "github.com/<votre-utilisateur-github>/go_course_manager/server/handler"
+    "os"
+    "path/filepath"
+    "time"
 )
 
+var excuses []string
+
+// Charge les excuses depuis le fichier JSON
+func loadExcuses(filename string) error {
+    file, err := os.Open(filename)
+    if err != nil {
+        return err
+    }
+    defer file.Close()
+
+    decoder := json.NewDecoder(file)
+    if err := decoder.Decode(&excuses); err != nil {
+        return err
+    }
+    return nil
+}
+
+// Handler pour récupérer une excuse aléatoire
+func getRandomExcuse(w http.ResponseWriter, r *http.Request) {
+    if len(excuses) == 0 {
+        http.Error(w, "Aucune excuse disponible", http.StatusInternalServerError)
+        return
+    }
+
+    rand.Seed(time.Now().UnixNano())
+    randomIndex := rand.Intn(len(excuses))
+    excuse := excuses[randomIndex]
+
+    response := map[string]string{"excuse": excuse}
+    w.Header().Set("Content-Type", "application/json")
+    json.NewEncoder(w).Encode(response)
+}
+
 func main() {
-    // Initialisation de la base de données
-    handler.InitDB()
+    // Définir un drapeau pour le chemin du fichier excuses.json
+    var excusesFile string
+    flag.StringVar(&excusesFile, "excuses", "server/excuses.json", "Chemin vers le fichier excuses.json")
+    flag.Parse()
 
-    // Définition des routes
-    http.HandleFunc("/", handler.HomeHandler)
-    http.HandleFunc("/ajouter-cours", handler.AddCourseHandler)
-    http.HandleFunc("/telecharger-cours", handler.DownloadCourseHandler)
+    // Obtenir le répertoire de travail actuel
+    cwd, err := os.Getwd()
+    if err != nil {
+        log.Fatalf("Impossible d'obtenir le répertoire de travail : %v", err)
+    }
 
-    fmt.Println("Le serveur est lancé sur http://localhost:8080")
-    log.Fatal(http.ListenAndServe(":8080", nil))
+    // Construire le chemin complet vers excuses.json
+    excusesPath := filepath.Join(cwd, excusesFile)
+    log.Printf("Chemin vers excuses.json : %s", excusesPath)
+
+    // Charger les excuses au démarrage
+    err = loadExcuses(excusesPath)
+    if err != nil {
+        log.Fatalf("Erreur lors du chargement des excuses : %v", err)
+    }
+
+    http.HandleFunc("/excuse", getRandomExcuse)
+
+    port := ":8080"
+    log.Printf("Serveur démarré sur le port %s", port)
+    if err := http.ListenAndServe(port, nil); err != nil {
+        log.Fatalf("Erreur du serveur : %v", err)
+    }
 }
