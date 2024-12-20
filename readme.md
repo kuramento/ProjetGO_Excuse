@@ -21,8 +21,7 @@ Le projet suivant permet de générer des excuses de façon aléatoire, avec un 
 - **server/** : Contient le code côté serveur et le fichier `excuses.json`. Le code permettant d'afficher la page web.
 - **client/** : Contient le code côté client.
 - **README.md** : Ce fichier de documentation.
+  
+## Utilisations
 
-## Commandes 
-
-  - **generate** : Permet de générer une excuse aléatoire.
-  - **exit** : Quitte le client.
+- lancer le server et le client, le serveur affichera une page web, et le client permettra de choisir une excuse en ligne de commande.
